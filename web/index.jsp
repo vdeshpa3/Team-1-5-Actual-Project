@@ -21,15 +21,14 @@ if(conn == null)
 	out.print("Connection not established");
 }else
 {
-	out.print("Connection Established");
-	String query="select * from groups";
+	//out.print("Connection Established");
+	String query="SELECT * FROM groups WHERE g_name like '%" + request.getAttribute("group_name") + "%'";
 	Statement stmt=conn.createStatement();
 	ResultSet rs=stmt.executeQuery(query);  
 	%>
         <th>Group_ID</th>
         <th>Group Name</th>
         <th>Group Description</th>
-        <th>Group Members</th>
         <th>Join</th>
         <%
         while(rs.next())
@@ -38,10 +37,9 @@ if(conn == null)
 	%>
 	    <tr>
             <td><%=rs.getInt("g_id") %></td>
-	    <td><a href=""><%=rs.getString("g_name") %></a></td>
+	    <td><a href="<%=rs.getString("g_name")%>.jsp"><%=rs.getString("g_name") %></a></td>
 	    <td><%=rs.getString("g_description") %></td>
-	    <td><%=rs.getInt("g_group_members") %></td>
-            <td><a href="">Join</a></td></tr>
+            <td><a href="<%=rs.getString("g_name")%>.jsp">Join</a></td></tr>
             
 	 <%}
 }
